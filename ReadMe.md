@@ -96,3 +96,13 @@ cd laravel
 npm install -g newman
 newman run crud_tests.json
 ```
+
+### Test Results
+
+Via Postman
+![Logo](images/postman.png)
+
+### Test Results
+
+Via Newman
+![Logo](images/newman.png)
