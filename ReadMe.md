@@ -102,8 +102,8 @@ http://localhost:3000/
 Credentials
 
 ```text
-Username: **test@example.com**
-Password: **password**
+Username: test@example.com
+Password: password
 ```
 
 ### Running Tests
