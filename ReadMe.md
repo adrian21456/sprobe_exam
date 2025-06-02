@@ -97,12 +97,10 @@ npm install -g newman
 newman run crud_tests.json
 ```
 
-### Test Results
+### Test Results in POSTMAN
 
-Via Postman
 ![Logo](images/postman.png)
 
-### Test Results
+### Test Results in NEWMAN
 
-Via Newman
 ![Logo](images/newman.png)
