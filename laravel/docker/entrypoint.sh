@@ -17,6 +17,11 @@ if [ "$DB_CONNECTION" = "sqlite" ]; then
   fi
 fi
 
+# Run migrations and seed database
 php artisan migrate:fresh --seed --force
 
-php artisan serve --host=0.0.0.0 --port=8000
+# Start Laravel development server in background
+php artisan serve --host=0.0.0.0 --port=8000 &
+
+# Start the queue worker (in foreground to keep container running)
+php artisan queue:work

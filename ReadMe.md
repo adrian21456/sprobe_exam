@@ -69,6 +69,17 @@ git clone <repository_url>
 cd sprobe-developer-examination
 ```
 
+### Installing Backend
+
+Make sure port 8000 is free.
+
+```bash
+cd laravel
+docker-compose up --build
+```
+
+The backend API will be accessible at [http://localhost:8000](http://localhost:8000).
+
 ### Installing Frontend
 
 Make sure port 3000 is free.
@@ -80,16 +91,20 @@ docker-compose up --build
 
 The frontend application will be accessible at [http://localhost:3000](http://localhost:3000).
 
-### Installing Backend
+### Accessing Application
 
-Make sure port 8000 is free.
+Open Browser and Browse:
 
-```bash
-cd laravel
-docker-compose up --build
+```text
+http://localhost:3000/
 ```
 
-The backend API will be accessible at [http://localhost:8000](http://localhost:8000).
+Credentials
+
+```text
+Username: **test@example.com**
+Password: **password**
+```
 
 ### Running Tests
 
