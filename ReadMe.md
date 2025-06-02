@@ -29,6 +29,8 @@ The system is designed with the following database relationships:
 - **Employee to Family**: One-to-one
 - **Employee to Files**: Many-to-many (via employee_files pivot table)
 
+![Logo](images/erd.jpeg)
+
 ## Features
 
 ### Frontend
