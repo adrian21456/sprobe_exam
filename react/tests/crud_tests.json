@@ -1,0 +1,1927 @@
+{
+	"info": {
+		"_postman_id": "1f09969b-7522-4f5a-a076-e19bfe37616c",
+		"name": "SPROBE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33500919"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();",
+									"pm.collectionVariables.set(\"user_token\", response.token);",
+									"",
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Department",
+			"item": [
+				{
+					"name": "ADD",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Set result.employee_id as a path_id variable in the collection variables",
+									"pm.test(\"Set result.employee_id as path_id to the collection variables\", function () {",
+									"    let id = pm.response.json().result[pm.collectionVariables.get(\"pk\")];",
+									"    pm.collectionVariables.set(\"path_id\", id);",
+									"    pm.collectionVariables.set(pm.collectionVariables.get(\"path\") + \"_path_id\", id);",
+									"});",
+									"",
+									"pm.test(\"Set pk\", function () {",
+									"    let id = pm.response.json().result[pm.collectionVariables.get(\"pk\")];",
+									"    pm.collectionVariables.set(pm.collectionVariables.get(\"path\") + \"_id\", id);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"path\", \"department\");",
+									"pm.collectionVariables.set(\"pk\", \"department_id\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|8h8irJEOaqJ59AUyip7wF1iSsDquAMg6D7BQreiz40b66395"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "department_name",
+									"value": "Department",
+									"type": "text"
+								},
+								{
+									"key": "department_head",
+									"value": "Department Head",
+									"type": "text"
+								},
+								{
+									"key": "designation_name",
+									"value": "Designation",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/{{path}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|8h8irJEOaqJ59AUyip7wF1iSsDquAMg6D7BQreiz40b66395"
+							},
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "firstname",
+									"value": "Adrians",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "Duma-op",
+									"type": "text"
+								},
+								{
+									"key": "middlename",
+									"value": "Hernaez",
+									"type": "text"
+								},
+								{
+									"key": "birthdate",
+									"value": "1998-06-04",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Talisay City",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "Male",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/{{path}}/{{path_id}}?department_name=Update Department&department_head=Update Department Head&designation_name=Update Designation",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}",
+								"{{path_id}}"
+							],
+							"query": [
+								{
+									"key": "department_name",
+									"value": "Update Department"
+								},
+								{
+									"key": "department_head",
+									"value": "Update Department Head"
+								},
+								{
+									"key": "designation_name",
+									"value": "Update Designation"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIST",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Result has an employee ID that matches the ID in the collection variables\", function () {",
+									"    let matchID = pm.collectionVariables.get(\"path_id\");",
+									"    let match = false;",
+									"    pm.response.json().result.forEach(function(data) {",
+									"        if (data[pm.collectionVariables.get(\"pk\")] === parseInt(matchID)) {",
+									"            match = true;",
+									"        }",
+									"    });",
+									"    pm.expect(match).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{path}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SEARCH",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Result has an employee ID that matches the ID in the collection variables\", function () {",
+									"    let matchID = pm.collectionVariables.get(\"path_id\");",
+									"    let match = false;",
+									"    pm.response.json().result.forEach(function(data) {",
+									"        if (data[pm.collectionVariables.get(\"pk\")] === parseInt(matchID)) {",
+									"            match = true;",
+									"        }",
+									"    });",
+									"    pm.expect(match).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|8h8irJEOaqJ59AUyip7wF1iSsDquAMg6D7BQreiz40b66395"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{path}}/search",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Result has an employee ID that matches the ID in the collection variables\", function () {",
+									"    let match = (parseInt(pm.collectionVariables.get(\"path_id\")) == pm.response.json().result[pm.collectionVariables.get(\"pk\")]) ",
+									"    pm.expect(match).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{path}}/{{path_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}",
+								"{{path_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Employee",
+			"item": [
+				{
+					"name": "ADD",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Set result.employee_id as a path_id variable in the collection variables",
+									"pm.test(\"Set result.employee_id as path_id to the collection variables\", function () {",
+									"    let id = pm.response.json().result[pm.collectionVariables.get(\"pk\")];",
+									"    pm.collectionVariables.set(\"path_id\", id);",
+									"    pm.collectionVariables.set(pm.collectionVariables.get(\"path\") + \"_path_id\", id);",
+									"});",
+									"",
+									"pm.test(\"Set pk\", function () {",
+									"    let id = pm.response.json().result[pm.collectionVariables.get(\"pk\")];",
+									"    pm.collectionVariables.set(pm.collectionVariables.get(\"path\") + \"_id\", id);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"path\", \"employee\");",
+									"pm.collectionVariables.set(\"pk\", \"employee_id\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|8h8irJEOaqJ59AUyip7wF1iSsDquAMg6D7BQreiz40b66395"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "firstname",
+									"value": "Adrians",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "Duma-op",
+									"type": "text"
+								},
+								{
+									"key": "middlename",
+									"value": "Hernaez",
+									"type": "text"
+								},
+								{
+									"key": "birthdate",
+									"value": "1998-06-04",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Talisay City",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "Male",
+									"type": "text"
+								},
+								{
+									"key": "department_id",
+									"value": "{{department_id}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/{{path}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|8h8irJEOaqJ59AUyip7wF1iSsDquAMg6D7BQreiz40b66395"
+							},
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "firstname",
+									"value": "Adrians",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "Duma-op",
+									"type": "text"
+								},
+								{
+									"key": "middlename",
+									"value": "Hernaez",
+									"type": "text"
+								},
+								{
+									"key": "birthdate",
+									"value": "1998-06-04",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Talisay City",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "Male",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/{{path}}/{{path_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}",
+								"{{path_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIST",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Result has an employee ID that matches the ID in the collection variables\", function () {",
+									"    let matchID = pm.collectionVariables.get(\"path_id\");",
+									"    let match = false;",
+									"    pm.response.json().result.forEach(function(data) {",
+									"        if (data[pm.collectionVariables.get(\"pk\")] === parseInt(matchID)) {",
+									"            match = true;",
+									"        }",
+									"    });",
+									"    pm.expect(match).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{path}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SEARCH",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Result has an employee ID that matches the ID in the collection variables\", function () {",
+									"    let matchID = pm.collectionVariables.get(\"path_id\");",
+									"    let match = false;",
+									"    pm.response.json().result.forEach(function(data) {",
+									"        if (data[pm.collectionVariables.get(\"pk\")] === parseInt(matchID)) {",
+									"            match = true;",
+									"        }",
+									"    });",
+									"    pm.expect(match).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|8h8irJEOaqJ59AUyip7wF1iSsDquAMg6D7BQreiz40b66395"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{path}}/search",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Result has an employee ID that matches the ID in the collection variables\", function () {",
+									"    let match = (parseInt(pm.collectionVariables.get(\"path_id\")) == pm.response.json().result[pm.collectionVariables.get(\"pk\")]) ",
+									"    pm.expect(match).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{path}}/{{path_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}",
+								"{{path_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "File",
+			"item": [
+				{
+					"name": "ADD",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Set result.employee_id as a path_id variable in the collection variables",
+									"pm.test(\"Set result.employee_id as path_id to the collection variables\", function () {",
+									"    let id = pm.response.json().result[pm.collectionVariables.get(\"pk\")];",
+									"    pm.collectionVariables.set(\"path_id\", id);",
+									"    pm.collectionVariables.set(pm.collectionVariables.get(\"path\") + \"_path_id\", id);",
+									"});",
+									"",
+									"pm.test(\"Set pk\", function () {",
+									"    let id = pm.response.json().result[pm.collectionVariables.get(\"pk\")];",
+									"    pm.collectionVariables.set(pm.collectionVariables.get(\"path\") + \"_id\", id);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"path\", \"file\");",
+									"pm.collectionVariables.set(\"pk\", \"file_id\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|8h8irJEOaqJ59AUyip7wF1iSsDquAMg6D7BQreiz40b66395"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file_name",
+									"value": "Test",
+									"type": "text"
+								},
+								{
+									"key": "file_description",
+									"value": "Testing",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/{{path}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|8h8irJEOaqJ59AUyip7wF1iSsDquAMg6D7BQreiz40b66395"
+							},
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file_name",
+									"value": "Update Test",
+									"type": "text"
+								},
+								{
+									"key": "file_description",
+									"value": "Update Testing",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/{{path}}/{{path_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}",
+								"{{path_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIST",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Result has an employee ID that matches the ID in the collection variables\", function () {",
+									"    let matchID = pm.collectionVariables.get(\"path_id\");",
+									"    let match = false;",
+									"    pm.response.json().result.forEach(function(data) {",
+									"        if (data[pm.collectionVariables.get(\"pk\")] === parseInt(matchID)) {",
+									"            match = true;",
+									"        }",
+									"    });",
+									"    pm.expect(match).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{path}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SEARCH",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Result has an employee ID that matches the ID in the collection variables\", function () {",
+									"    let matchID = pm.collectionVariables.get(\"path_id\");",
+									"    let match = false;",
+									"    pm.response.json().result.forEach(function(data) {",
+									"        if (data[pm.collectionVariables.get(\"pk\")] === parseInt(matchID)) {",
+									"            match = true;",
+									"        }",
+									"    });",
+									"    pm.expect(match).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|8h8irJEOaqJ59AUyip7wF1iSsDquAMg6D7BQreiz40b66395"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{path}}/search",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Result has an employee ID that matches the ID in the collection variables\", function () {",
+									"    let match = (parseInt(pm.collectionVariables.get(\"path_id\")) == pm.response.json().result[pm.collectionVariables.get(\"pk\")]) ",
+									"    pm.expect(match).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{path}}/{{path_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}",
+								"{{path_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Employee - File",
+			"item": [
+				{
+					"name": "ADD",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Set result.employee_id as a path_id variable in the collection variables",
+									"pm.test(\"Set result.employee_id as path_id to the collection variables\", function () {",
+									"    let id = pm.response.json().result[pm.collectionVariables.get(\"pk\")];",
+									"    pm.collectionVariables.set(\"path_id\", id);",
+									"    pm.collectionVariables.set(pm.collectionVariables.get(\"path\") + \"_path_id\", id);",
+									"});",
+									"",
+									"pm.test(\"Set pk\", function () {",
+									"    let id = pm.response.json().result[pm.collectionVariables.get(\"pk\")];",
+									"    pm.collectionVariables.set(pm.collectionVariables.get(\"path\") + \"_id\", id);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"path\", \"employee_file\");",
+									"pm.collectionVariables.set(\"pk\", \"employee_file_id\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|8h8irJEOaqJ59AUyip7wF1iSsDquAMg6D7BQreiz40b66395"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "employee_id",
+									"value": "{{employee_id}}",
+									"type": "text"
+								},
+								{
+									"key": "file_id",
+									"value": "{{file_id}}",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Description",
+									"type": "text"
+								},
+								{
+									"key": "file_upload",
+									"type": "file",
+									"src": "postman-cloud:///1f015532-97f8-4fe0-86d2-8e76b0249c04"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/{{path}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|8h8irJEOaqJ59AUyip7wF1iSsDquAMg6D7BQreiz40b66395"
+							},
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file_name",
+									"value": "Update Test",
+									"type": "text"
+								},
+								{
+									"key": "file_description",
+									"value": "Update Testing",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/{{path}}/{{path_id}}?employee_id={{employee_id}}&file_id={{file_id}}&description=Update Description ",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}",
+								"{{path_id}}"
+							],
+							"query": [
+								{
+									"key": "employee_id",
+									"value": "{{employee_id}}"
+								},
+								{
+									"key": "file_id",
+									"value": "{{file_id}}"
+								},
+								{
+									"key": "description",
+									"value": "Update Description "
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIST",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Result has an employee ID that matches the ID in the collection variables\", function () {",
+									"    let matchID = pm.collectionVariables.get(\"path_id\");",
+									"    let match = false;",
+									"    pm.response.json().result.forEach(function(data) {",
+									"        if (data[pm.collectionVariables.get(\"pk\")] === parseInt(matchID)) {",
+									"            match = true;",
+									"        }",
+									"    });",
+									"    pm.expect(match).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{path}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SEARCH",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Result has an employee ID that matches the ID in the collection variables\", function () {",
+									"    let matchID = pm.collectionVariables.get(\"path_id\");",
+									"    let match = false;",
+									"    pm.response.json().result.forEach(function(data) {",
+									"        if (data[pm.collectionVariables.get(\"pk\")] === parseInt(matchID)) {",
+									"            match = true;",
+									"        }",
+									"    });",
+									"    pm.expect(match).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|8h8irJEOaqJ59AUyip7wF1iSsDquAMg6D7BQreiz40b66395"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{path}}/search",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Result has an employee ID that matches the ID in the collection variables\", function () {",
+									"    let match = (parseInt(pm.collectionVariables.get(\"path_id\")) == pm.response.json().result[pm.collectionVariables.get(\"pk\")]) ",
+									"    pm.expect(match).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{path}}/{{path_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}",
+								"{{path_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Family",
+			"item": [
+				{
+					"name": "ADD",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"// Set result.employee_id as a path_id variable in the collection variables",
+									"pm.test(\"Set result.employee_id as path_id to the collection variables\", function () {",
+									"    let id = pm.response.json().result[pm.collectionVariables.get(\"pk\")];",
+									"    pm.collectionVariables.set(\"path_id\", id);",
+									"    pm.collectionVariables.set(pm.collectionVariables.get(\"path\") + \"_path_id\", id);",
+									"});",
+									"",
+									"pm.test(\"Set pk\", function () {",
+									"    let id = pm.response.json().result[pm.collectionVariables.get(\"pk\")];",
+									"    pm.collectionVariables.set(pm.collectionVariables.get(\"path\") + \"_id\", id);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"path\", \"family\");",
+									"pm.collectionVariables.set(\"pk\", \"family_id\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|8h8irJEOaqJ59AUyip7wF1iSsDquAMg6D7BQreiz40b66395"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "employee_id",
+									"value": "{{employee_id}}",
+									"type": "text"
+								},
+								{
+									"key": "mother_name",
+									"value": "Mother",
+									"type": "text"
+								},
+								{
+									"key": "father_name",
+									"value": "Father",
+									"type": "text"
+								},
+								{
+									"key": "spouse_name",
+									"value": "Spouse",
+									"type": "text"
+								},
+								{
+									"key": "children_count",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/{{path}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|8h8irJEOaqJ59AUyip7wF1iSsDquAMg6D7BQreiz40b66395"
+							},
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "employee_id",
+									"value": "{{employee_id}}",
+									"type": "text"
+								},
+								{
+									"key": "mother_name",
+									"value": "Mother Update",
+									"type": "text"
+								},
+								{
+									"key": "father_name",
+									"value": "Father Update",
+									"type": "text"
+								},
+								{
+									"key": "spouse_name",
+									"value": "Spouse Update",
+									"type": "text"
+								},
+								{
+									"key": "children_count",
+									"value": "4",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/{{path}}/{{path_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}",
+								"{{path_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIST",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Result has an employee ID that matches the ID in the collection variables\", function () {",
+									"    let matchID = pm.collectionVariables.get(\"path_id\");",
+									"    let match = false;",
+									"    pm.response.json().result.forEach(function(data) {",
+									"        if (data[pm.collectionVariables.get(\"pk\")] === parseInt(matchID)) {",
+									"            match = true;",
+									"        }",
+									"    });",
+									"    pm.expect(match).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{path}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SEARCH",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Result has an employee ID that matches the ID in the collection variables\", function () {",
+									"    let matchID = pm.collectionVariables.get(\"path_id\");",
+									"    let match = false;",
+									"    pm.response.json().result.forEach(function(data) {",
+									"        if (data[pm.collectionVariables.get(\"pk\")] === parseInt(matchID)) {",
+									"            match = true;",
+									"        }",
+									"    });",
+									"    pm.expect(match).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|8h8irJEOaqJ59AUyip7wF1iSsDquAMg6D7BQreiz40b66395"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{path}}/search",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Result has an employee ID that matches the ID in the collection variables\", function () {",
+									"    let match = (parseInt(pm.collectionVariables.get(\"path_id\")) == pm.response.json().result[pm.collectionVariables.get(\"pk\")]) ",
+									"    pm.expect(match).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{path}}/{{path_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}",
+								"{{path_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CleanUp",
+			"item": [
+				{
+					"name": "FAMILY DELETE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{path}}/{{family_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}",
+								"{{family_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EMPLOYEE FILE DELETE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{path}}/{{employee_file_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}",
+								"{{employee_file_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FILE DELETE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{path}}/{{file_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}",
+								"{{file_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EMPLOYEE DELETE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{path}}/{{employee_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}",
+								"{{employee_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DEPARTMENT DELETE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{path}}/{{department_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{path}}",
+								"{{department_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();",
+									"pm.collectionVariables.set(\"user_token\", response.token);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "Bearer {{user_token}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "Authorization",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "user_token",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "path",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "path_id",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "url",
+			"value": "http://localhost:8000/api",
+			"type": "default"
+		},
+		{
+			"key": "pk",
+			"value": ""
+		},
+		{
+			"key": "employee_path_id",
+			"value": ""
+		},
+		{
+			"key": "employee_id",
+			"value": ""
+		},
+		{
+			"key": "department_path_id",
+			"value": ""
+		},
+		{
+			"key": "department_id",
+			"value": ""
+		},
+		{
+			"key": "file_path_id",
+			"value": ""
+		},
+		{
+			"key": "file_id",
+			"value": ""
+		},
+		{
+			"key": "employee_file_path_id",
+			"value": ""
+		},
+		{
+			"key": "employee_file_id",
+			"value": ""
+		},
+		{
+			"key": "family_path_id",
+			"value": ""
+		},
+		{
+			"key": "family_id",
+			"value": ""
+		}
+	]
+}

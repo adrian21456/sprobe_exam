@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Models\Mods;
+
+use App\Models\BaseModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+abstract class ModDemo extends BaseModel
+{
+
+    use HasFactory;
+    use SoftDeletes;
+
+    public $primaryKey = '{{pk_column}}';
+    public $table = '{{table}}';
+    public $timestamps = {{timestamps}};
+
+    public $fillable = [
+        {{fillables}}
+    ];
+
+    public $casts = [
+        {{casts}}
+    ];
+
+    /* START: Extended Properties for Configurator */
+
+    public array $nullable = [
+        {{nullables}}
+    ];
+
+    public array $enumerable = [
+        {{enumerables}}
+    ];
+
+    public array $files = [
+        {{files}}
+    ];
+
+    public array $lengths = [
+        {{lengths}}
+    ];
+
+    public $defaults = [
+        {{defaults}}
+    ];
+
+    /* END: Extended Properties for Configurator */
+
+}
