@@ -53,6 +53,8 @@ The system is designed with the following database relationships:
 - **Websocket Implementation**: Real-time communication powered by Pusher.
 - **SQLite Database**: Lightweight and efficient database solution.
 - **Modular Design**: Organized codebase with dedicated modules for Models, Factories, Seeders, and Migrations.
+- **Audit Logs**: Automatic Audit Logging in every CRUD Request.
+- **Soft Deletes**: Implementation of soft deletes for data archiving.
 
 ## Installation
 
